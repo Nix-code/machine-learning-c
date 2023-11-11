@@ -1,0 +1,1 @@
+ / (float) RAND_MAX
