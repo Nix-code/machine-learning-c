@@ -20,22 +20,33 @@ float train[][2] = {
 
 };
 
-float random_float (void) {
-    return (float)rand() / (float) RAND_MAX;
+float random_float(void)
+{
+    return (float)rand() / (float)RAND_MAX;
 }
 
+float cost_function(float weight){
+    float result = 0.0f;
+    size_t n = train_count;
+    for (size_t i = 0; i < n; i++)
+    {
+        float x = train[i][0];
+        float y = x * weight; 
+        float d = y - train[i][0];
+        result += d*d;
+    }
+    result /= train_count;
+    return result;
+}
 int main()
 {
     // every time the number is different
-    //srand(time(0));
+    // srand(time(0));
     srand(12);
     // Weight and Bias
-    float W = random_float()*10.0f;
-    size_t n = train_count;
-    for(size_t i = 0; i < n; i++){
-        float x = train[i][0];
-        float y = x * W; // y = mx+c i.e linear equation
-        printf("actual: %f, expected: %f \n", y, train[i][1]);
-    }
+    float weight = random_float() * 10.0f;
+    float result = cost_function(weight);
+    
+    printf("%f", result);
     return 0;
 }
